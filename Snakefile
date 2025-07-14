@@ -6,7 +6,7 @@ import os
 OUTPUT="/local/storage/kav67/primates/"
 mapping="LatinToCommonToFilename.csv"
 IgDetective_dir="/local/storage/kav67/IgDetective/"
-Human_ref="/local/storage/kav67/Human_ref/"
+Human_ref="Human_ref/"
 
 loci = ["IGH","IGL","IGK","TRA","TRB","TRG"] 
 
@@ -16,7 +16,7 @@ print(files)
 
 rule all:
     input:
-        expand(OUTPUT + "{file}/{l}_ref.fasta", file=files, l=loci)
+        expand(OUTPUT + "{file}/{l}_table.tsv", file=files, l=loci)
 
 #comment out the following rule if you want to skip the IgDetective step
 rule IgDetective:
@@ -156,21 +156,21 @@ rule digger:
         {output.diggerf} &>> {log}
     """
 
-# rule combine_results:
-#     resources:
-#         mem="2G"
-#     threads: 10
-#     log: os.path.join(OUTPUT, "logs", "combine_results_{l}_{file}.log")
-#     input:
-#         script = 'combine_results.R',
-#         IgDetective = OUTPUT + "{file}/combined_genes_{l}.txt",
-#         digger = OUTPUT + "{file}/{l}_digger_r.tsv",
-#         diggerf = OUTPUT + "{file}/{l}_digger_f.tsv"
-#     output:
-#         combined = OUTPUT + "{file}/{l}_table.tsv",   
-#     params:
-#         dir = OUTPUT + "{file}/",
-#         locus = "{l}"
-#     shell:
-#         "echo " + platform.node() + " &>> {log} && \
-#          python {input.script} -i {input.vquest} -o {params.dir} -l {params.locus} &>> {log}"
+rule combine_results:
+    resources:
+        mem="2G"
+    threads: 10
+    log: os.path.join(OUTPUT, "logs", "combine_results_{l}_{file}.log")
+    input:
+        script = 'combine_results.R',
+        IgDetective = OUTPUT + "{file}/combined_genes_{l}.txt",
+        digger = OUTPUT + "{file}/{l}_digger_r.tsv",
+        diggerf = OUTPUT + "{file}/{l}_digger_f.tsv"
+    output:
+        combined = OUTPUT + "{file}/{l}_table.tsv",   
+    params:
+        dir = OUTPUT + "{file}/",
+        locus = "{l}"
+    shell:
+        "echo " + platform.node() + " &>> {log} && \
+         Rscript {input.script} --base_dir {params.dir} -l {params.locus} &>> {log}"
