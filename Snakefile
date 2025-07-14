@@ -4,7 +4,7 @@ import platform
 import os
 
 OUTPUT="/local/storage/kav67/primates/"
-mapping="/local/storage/kav67/primates/LatinToCommonToFilename.csv"
+mapping="LatinToCommonToFilename.csv"
 IgDetective_dir="/local/storage/kav67/IgDetective/"
 Human_ref="/local/storage/kav67/Human_ref/"
 
@@ -56,7 +56,7 @@ rule createDBfromIgDetective:
         "echo " + platform.node() + " >> {log} 2>&1 && \
         python {input.script} {input.csv} {params.dir} {input.mapping} {params.locus}>> {log} 2>&1"
 
-
+#uses human as default species
 rule vquest:
     resources:
         mem="10G",

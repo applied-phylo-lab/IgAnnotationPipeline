@@ -1,0 +1,12 @@
+LatinName,CommonName,FilePrefix,source
+Pongo_pygmaeus,Bornean orangutan,Bornean_orangutan,T2T
+Gorilla_gorilla,Gorilla,Gorilla,T2T
+Pan_paniscus,Bonobo,Bonobo,T2T
+Homo_sapiens,Human,Human,T2T
+Lemur_catta,Ring-tailed lemur,Ring-tailed_Lemur_alt,VGP
+Lemur_catta,Ring-tailed lemur,Ring-tailed_Lemur_pri,VGP
+Pongo_abelii,Sumatran orangutan,Sumatran_orangutan,T2T
+Nycticebus_coucang,Slow loris,Slow_loris_alt,VGP
+Nycticebus_coucang,Slow loris,Slow_loris_pri,VGP
+Macaca_mulatta,Rhesus macaque,Rhesus_macaque_ref,Peres
+Symphalangus_syndactylus,Siamang gibbon,Siamang_gibbon,T2T
