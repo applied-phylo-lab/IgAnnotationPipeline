@@ -2,15 +2,20 @@ import glob
 import yaml
 import platform
 import os
+from pathlib import Path
 
-OUTPUT="/local/storage/kav67/primates/"
+OUTPUT="/local/storage/dhardesty/assemblies/#Wall_Lizards/"
 mapping="LatinToCommonToFilename.csv"
 IgDetective_dir="/local/storage/kav67/IgDetective/"
 Human_ref="Human_ref/"
 
 loci = ["IGH","IGL","IGK","TRA","TRB","TRG"] 
 
-files = [os.path.splitext(os.path.basename(f))[0] for f in glob.glob(os.path.join(OUTPUT, "*.fasta"))]
+files = [
+    f"{p.parent.name}/{p.stem}"
+    for p in Path(OUTPUT).glob("*/*")
+    if p.is_file() and (p.name.endswith("pri.fna") or p.name.endswith("alt.fna"))
+]
 
 print(files)
 
@@ -63,7 +68,7 @@ rule vquest:
     threads: 10
     log: os.path.join(OUTPUT, "logs", "findVDJ_{l}_{file}.log")
     input:
-        script = '../annotation/IMGT_vquest.py',
+        script = 'IMGT_vquest.py',
         fasta = OUTPUT + "{file}/{l}V.fasta"
     output:
         vquest = OUTPUT + "{file}/{l}_vquest/vquest_airr.tsv"
