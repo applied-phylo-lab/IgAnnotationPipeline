@@ -131,7 +131,7 @@ rule digger:
             DREF_OPTION=""
         fi
 
-        cd {p}
+        cd {params.dir}
 
         digger {input.fasta} \
         -v_ref {input.vref} \

@@ -10,6 +10,8 @@ conda env create -f annotation.yml
 conda activate annotation
 ```
 
+make sure you have IgDetective and digger installed
+
 To run snakemake pipeline:
 Change the following lines in the Snakefile:
 ```
