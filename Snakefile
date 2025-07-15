@@ -30,7 +30,7 @@ rule IgDetective:
     threads: 10
     log: os.path.join(OUTPUT,"logs", "IgDetective_{file}_{l}.log")
     input:
-        fasta = OUTPUT + "{file}.fasta"
+        fasta = OUTPUT + "{file}.fna"
     output:
         csv = OUTPUT + "{file}/combined_genes_{l}.txt"
     params:
@@ -103,7 +103,7 @@ rule digger:
     threads: 10
     log: os.path.join(OUTPUT, "logs", "digger_{l}_{file}.log")
     input:
-        fasta = OUTPUT + "{file}.fasta",
+        fasta = OUTPUT + "{file}.fna",
         vref = OUTPUT + "{file}/{l}V.fasta",
         vref_gapped = OUTPUT + "{file}/{l}V_gapped.fasta"
     output:
